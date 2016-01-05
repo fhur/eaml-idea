@@ -1,0 +1,26 @@
+{
+  parserClass="eaml.parser.EamlParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Eaml"
+  psiImplClassSuffix="Impl"
+  psiPackage="eaml.psi"
+  psiImplPackage="eaml.psi.impl"
+
+  elementTypeHolderClass="eaml.psi.EamlTypes"
+  elementTypeClass="eaml.psi.EamlElementType"
+  tokenTypeClass="eaml.psi.EamlTokenType"
+}
+
+// A program is composed of 1 or more resource definitions
+eamlFile ::= resDef*
+
+// TODO currently only one types of resources, add styles
+resDef  ::= simpleResDef
+
+simpleResDef 			::= SIMPLE_RES_TYPE IDENTIFIER ':' SIMPLE_RES_VALUE ';'
+                 		  | SIMPLE_RES_TYPE IDENTIFIER '{' simpleResConfig* '}'
+simpleResConfig 		::= CONFIG_NAME ':' SIMPLE_RES_VALUE
+
+

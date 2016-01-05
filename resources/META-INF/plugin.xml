@@ -1,0 +1,36 @@
+<idea-plugin version="2">
+  <id>eaml</id>
+  <name>eaml language plugin</name>
+  <version>1.0</version>
+  <vendor email="fernandohur@gmail.com" url="http://github.com/fhur/eaml-idea">eaml</vendor>
+
+  <description><![CDATA[
+      <b>eaml</b>, pronounced <i>e-mel</i>, is the Extended Android Markup Language<br>
+      This plugin provides syntax highlighting, code completion and other goodies to help you write android apps with
+      lots of style.
+    ]]></description>
+
+  <change-notes><![CDATA[
+      <b>Initial version</b>
+    ]]>
+  </change-notes>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+  <idea-version since-build="141.0"/>
+
+  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+    <fileTypeFactory implementation="eaml.EamlFileTypeFactory"/>
+  </extensions>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
