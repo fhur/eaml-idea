@@ -14,13 +14,12 @@
 }
 
 // A program is composed of 1 or more resource definitions
-eamlFile ::= resDef*
+eamlFile ::= (colorResDef | dimenResDef | boolResDef | integerResDef | stringResDef)*
 
-// TODO currently only one types of resources, add styles
-resDef  ::= simpleResDef
-
-simpleResDef 			::= SIMPLE_RES_TYPE IDENTIFIER ':' SIMPLE_RES_VALUE ';'
-                 		  | SIMPLE_RES_TYPE IDENTIFIER '{' simpleResConfig* '}'
-simpleResConfig 		::= CONFIG_NAME ':' SIMPLE_RES_VALUE
+private colorResDef 	::= COLOR   COLOR_IDEN ASSIGNMENT COLOR_LITERAL 	LTERM
+private dimenResDef 	::= DIMEN   COLOR_IDEN ASSIGNMENT DIMEN_LITERAL 	LTERM
+private boolResDef   	::= BOOL    COLOR_IDEN ASSIGNMENT BOOL_LITERAL 		LTERM
+private integerResDef 	::= INTEGER COLOR_IDEN ASSIGNMENT INTEGER_LITERAL 	LTERM
+private stringResDef  	::= STRING  COLOR_IDEN ASSIGNMENT STRING_LITERAL 	LTERM
 
 

@@ -24,9 +24,14 @@
   <depends>com.intellij.modules.lang</depends>
   -->
 
+
+
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
     <fileTypeFactory implementation="eaml.EamlFileTypeFactory"/>
+    <lang.parserDefinition language="eaml" implementationClass="eaml.EamlParserDefinition"/>
+    <lang.syntaxHighlighterFactory language="eaml" implementationClass="eaml.EamlHighlighterFactory"/>
+    <colorSettingsPage implementation="eaml.EamlColorSettingsPage"/>
   </extensions>
 
   <actions>

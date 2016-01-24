@@ -2,6 +2,7 @@ package eaml.psi;
 
 import com.intellij.psi.tree.IElementType;
 import eaml.EamlLanguage;
+import eaml.EamlLexerAdapter;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 
