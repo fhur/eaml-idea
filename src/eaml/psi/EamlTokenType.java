@@ -1,5 +1,6 @@
 package eaml.psi;
 
+import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import eaml.EamlLanguage;
 import eaml.EamlLexerAdapter;

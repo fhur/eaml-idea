@@ -17,11 +17,7 @@ import java.util.Map;
  */
 public class EamlColorSettingsPage implements ColorSettingsPage {
 
-    private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{
-            new AttributesDescriptor("Identifier", EamlSyntaxHighlighter.COLOR_IDEN),
-            new AttributesDescriptor("Assignment", EamlSyntaxHighlighter.ASSIGNMENT),
-            new AttributesDescriptor("Color literal", EamlSyntaxHighlighter.COLOR_LITERAL),
-    };
+    private static final AttributesDescriptor[] DESCRIPTORS = new AttributesDescriptor[]{};
 
     @Nullable
     @Override

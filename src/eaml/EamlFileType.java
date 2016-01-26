@@ -14,6 +14,7 @@ public class EamlFileType extends LanguageFileType {
 
 
     public static final EamlFileType INSTANCE = new EamlFileType();
+    public static final Icon ICON = IconLoader.getIcon("/eaml/icons/icon.png");
 
     public EamlFileType() {
         super(EamlLanguage.INSTANCE);
@@ -40,6 +41,6 @@ public class EamlFileType extends LanguageFileType {
     @Nullable
     @Override
     public Icon getIcon() {
-        return IconLoader.getIcon("/eaml/icons/icon.png");
+        return ICON;
     }
 }

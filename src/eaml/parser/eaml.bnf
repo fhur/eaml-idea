@@ -14,12 +14,18 @@
 }
 
 // A program is composed of 1 or more resource definitions
-eamlFile ::= (colorResDef | dimenResDef | boolResDef | integerResDef | stringResDef)*
+eamlFile 	::= (colorResDef | dimenResDef | boolResDef | integerResDef | stringResDef)*
 
-private colorResDef 	::= COLOR   COLOR_IDEN ASSIGNMENT COLOR_LITERAL 	LTERM
-private dimenResDef 	::= DIMEN   COLOR_IDEN ASSIGNMENT DIMEN_LITERAL 	LTERM
-private boolResDef   	::= BOOL    COLOR_IDEN ASSIGNMENT BOOL_LITERAL 		LTERM
-private integerResDef 	::= INTEGER COLOR_IDEN ASSIGNMENT INTEGER_LITERAL 	LTERM
-private stringResDef  	::= STRING  COLOR_IDEN ASSIGNMENT STRING_LITERAL 	LTERM
+colorResDef 				::= COLOR   RES_IDEN colorResValue
+dimenResDef 				::= DIMEN   RES_IDEN dimenResValue
+boolResDef   				::= BOOL    RES_IDEN boolResValue
+integerResDef 				::= INTEGER RES_IDEN integerResValue
+stringResDef  				::= STRING  RES_IDEN stringResValue
+
+colorResValue 				::= ASSIGNMENT COLOR_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT COLOR_LITERAL)* R_BR
+dimenResValue 				::= ASSIGNMENT DIMEN_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT DIMEN_LITERAL)* R_BR
+boolResValue   				::= ASSIGNMENT BOOL_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT BOOL_LITERAL)* R_BR
+integerResValue 			::= ASSIGNMENT INTEGER_LITERAL LTERM 	| L_BR (RES_IDEN ASSIGNMENT INTEGER_LITERAL)* R_BR
+stringResValue  			::= ASSIGNMENT STRING_LITERAL LTERM  	| L_BR (RES_IDEN ASSIGNMENT STRING_LITERAL)* R_BR
 
 

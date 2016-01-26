@@ -24,20 +24,21 @@ StringLiteral  = \".*?\"
 BoolLiteral    = (true)|(false)
 DimenLiteral   = {IntegerLiteral}(dp|px|sp)
 
-ColorIden       = [:jletter:] [:jletterdigit:]*
-ConfigIden      = [:jletter:] [:jletterdigit:]*
+ResIden			= [:jletter:] [:jletterdigit:]*
 
 %%
 
 <YYINITIAL> {
 	/* keywords */
-	"color"           { System.out.println("matched color"); return EamlTypes.COLOR; }
+	"color"           { return EamlTypes.COLOR; }
 	"dimen"           { return EamlTypes.DIMEN; }
 	"bool"            { return EamlTypes.BOOL; }
 	"integer"         { return EamlTypes.INTEGER; }
 	"string"          { return EamlTypes.STRING; }
-	":"               { System.out.println("matched :"); return EamlTypes.ASSIGNMENT; }
-	";"               { System.out.println("matched ;"); return EamlTypes.LTERM; }
+	":"               { return EamlTypes.ASSIGNMENT; }
+	";"               { return EamlTypes.LTERM; }
+	"{"				  { return EamlTypes.L_BR; }
+	"}"				  { return EamlTypes.R_BR; }
 }
 
 <YYINITIAL> {
@@ -51,10 +52,10 @@ ConfigIden      = [:jletter:] [:jletterdigit:]*
 
 <YYINITIAL> {
 	/* identifiers */
-    {ColorIden} 			  { System.out.println("matched ColorIden ;"); return EamlTypes.COLOR_IDEN; }
+    {ResIden} 			  { return EamlTypes.RES_IDEN; }
 
 	/* Skip */
-	{WhiteSpace}      { System.out.println("matched whitespace"); }
+	{WhiteSpace}      { return TokenType.WHITE_SPACE; }
 }
 
 /* error fallback */
