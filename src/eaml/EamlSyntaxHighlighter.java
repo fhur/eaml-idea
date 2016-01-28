@@ -8,6 +8,7 @@ import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IElementType;
 import eaml.psi.EamlTypes;
+import groovyjarjarantlr.ANTLRTokenTypes;
 import org.codehaus.groovy.antlr.java.JavaTokenTypes;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,12 +45,25 @@ public class EamlSyntaxHighlighter extends SyntaxHighlighterBase {
     @Override
     public TextAttributesKey[] getTokenHighlights(final IElementType tokenType) {
         // keywords
-        if (in(tokenType, EamlTypes.COLOR, EamlTypes.BOOL, EamlTypes.INTEGER, EamlTypes.DIMEN, EamlTypes.STRING)) {
+        if (in(tokenType,
+                EamlTypes.COLOR,
+                EamlTypes.BOOL,
+                EamlTypes.INTEGER,
+                EamlTypes.DIMEN,
+                EamlTypes.STRING,
+                EamlTypes.STYLE,
+                EamlTypes.AMP,
+                EamlTypes.MIXIN,
+                EamlTypes.LT)) {
             return KEYWORDS;
         }
         // literals
-        else if (in(tokenType, EamlTypes.COLOR_LITERAL, EamlTypes.BOOL_LITERAL, EamlTypes.INTEGER_LITERAL,
-                EamlTypes.DIMEN_LITERAL, EamlTypes.STRING_LITERAL)) {
+        else if (in(tokenType,
+                EamlTypes.COLOR_LITERAL,
+                EamlTypes.BOOL_LITERAL,
+                EamlTypes.INTEGER_LITERAL,
+                EamlTypes.DIMEN_LITERAL,
+                EamlTypes.STRING_LITERAL)) {
             return LITERALS;
         }
         else if (in(tokenType, EamlTypes.L_BR, EamlTypes.R_BR)){
@@ -57,9 +71,6 @@ public class EamlSyntaxHighlighter extends SyntaxHighlighterBase {
         }
         else if (tokenType.equals(EamlTypes.ASSIGNMENT)) {
             return ASSIGNMENT_KEYS;
-        }
-        else if (tokenType.equals(EamlTypes.LTERM)) {
-            return SEMICOLONS;
         }
         else if (tokenType.equals(TokenType.BAD_CHARACTER)) {
             return BAD_CHARACTERS;

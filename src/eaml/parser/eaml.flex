@@ -17,12 +17,14 @@ import com.intellij.psi.TokenType;
 
 LineTerminator = \r|\n|\r\n
 WhiteSpace     = {LineTerminator} | [ \t\f]
-
+InputCharacter = [^\r\n]
+LineComment    = "//" {InputCharacter}* {LineTerminator}?
 ColorLiteral   = "#" [0-9a-fA-F]{3,8}
 IntegerLiteral = 0 | [1-9][0-9]*
 StringLiteral  = \".*?\"
 BoolLiteral    = (true)|(false)
-DimenLiteral   = {IntegerLiteral}(dp|px|sp)
+DimenLiteral   = {IntegerLiteral}(dp|sp|pt|px|mm|in)
+NativePointer  = \@[a-zA-Z]\w*\/[a-zA-Z]\w*
 
 ResIden			= [:jletter:] [:jletterdigit:]*
 
@@ -35,27 +37,39 @@ ResIden			= [:jletter:] [:jletterdigit:]*
 	"bool"            { return EamlTypes.BOOL; }
 	"integer"         { return EamlTypes.INTEGER; }
 	"string"          { return EamlTypes.STRING; }
+	"default"         { return EamlTypes.RES_IDEN; }
+	"style"           { return EamlTypes.STYLE; }
+	"mixin" 		  { return EamlTypes.MIXIN; }
 	":"               { return EamlTypes.ASSIGNMENT; }
-	";"               { return EamlTypes.LTERM; }
 	"{"				  { return EamlTypes.L_BR; }
 	"}"				  { return EamlTypes.R_BR; }
+	"("				  { return EamlTypes.L_PR; }
+    ")"				  { return EamlTypes.R_PR; }
+	"null"  		  { return EamlTypes.NULL; }
+	"." 			  { return EamlTypes.DOT; }
+	"<" 			  { return EamlTypes.LT; }
+	"&" 			  { return EamlTypes.AMP; }
+	//"/" 			  { return EamlTypes.SLASH; }
 }
 
 <YYINITIAL> {
 	/* literals */
-	{ColorLiteral}		{return EamlTypes.COLOR_LITERAL; }
-	{DimenLiteral}		{return EamlTypes.DIMEN_LITERAL; }
-	{BoolLiteral}		{return EamlTypes.BOOL_LITERAL; }
-	{IntegerLiteral}	{return EamlTypes.INTEGER_LITERAL; }
-	{StringLiteral}		{return EamlTypes.STRING_LITERAL; }
+	{ColorLiteral}		{ return EamlTypes.COLOR_LITERAL; }
+	{DimenLiteral}		{ return EamlTypes.DIMEN_LITERAL; }
+	{BoolLiteral}		{ return EamlTypes.BOOL_LITERAL; }
+	{IntegerLiteral}	{ return EamlTypes.INTEGER_LITERAL; }
+	{StringLiteral}		{ return EamlTypes.STRING_LITERAL; }
+
 }
 
 <YYINITIAL> {
+	{LineComment} 		{ /* comments are ignored */ }
+
 	/* identifiers */
     {ResIden} 			  { return EamlTypes.RES_IDEN; }
 
 	/* Skip */
-	{WhiteSpace}      { return TokenType.WHITE_SPACE; }
+	{WhiteSpace}		{ return TokenType.WHITE_SPACE; }
 }
 
 /* error fallback */

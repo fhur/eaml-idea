@@ -14,18 +14,39 @@
 }
 
 // A program is composed of 1 or more resource definitions
-eamlFile 	::= (colorResDef | dimenResDef | boolResDef | integerResDef | stringResDef)*
+eamlFile 	::= (colorResDef | dimenResDef | boolResDef | integerResDef | stringResDef | styleResDef | mixinDef)*
 
 colorResDef 				::= COLOR   RES_IDEN colorResValue
 dimenResDef 				::= DIMEN   RES_IDEN dimenResValue
 boolResDef   				::= BOOL    RES_IDEN boolResValue
 integerResDef 				::= INTEGER RES_IDEN integerResValue
 stringResDef  				::= STRING  RES_IDEN stringResValue
+styleResDef 				::= STYLE   RES_IDEN (LT RES_IDEN (DOT RES_IDEN)*)? L_BR styleResBody R_BR
+mixinDef 					::= MIXIN   RES_IDEN (L_PR R_PR)? L_BR mixinBody R_BR
 
-colorResValue 				::= ASSIGNMENT COLOR_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT COLOR_LITERAL)* R_BR
-dimenResValue 				::= ASSIGNMENT DIMEN_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT DIMEN_LITERAL)* R_BR
-boolResValue   				::= ASSIGNMENT BOOL_LITERAL LTERM 		| L_BR (RES_IDEN ASSIGNMENT BOOL_LITERAL)* R_BR
-integerResValue 			::= ASSIGNMENT INTEGER_LITERAL LTERM 	| L_BR (RES_IDEN ASSIGNMENT INTEGER_LITERAL)* R_BR
-stringResValue  			::= ASSIGNMENT STRING_LITERAL LTERM  	| L_BR (RES_IDEN ASSIGNMENT STRING_LITERAL)* R_BR
+colorResValue 				::= ASSIGNMENT colorValue 	| L_BR (RES_IDEN ASSIGNMENT colorValue)* R_BR
+dimenResValue 				::= ASSIGNMENT dimenValue 	| L_BR (RES_IDEN ASSIGNMENT dimenValue)* R_BR
+boolResValue   				::= ASSIGNMENT boolValue 	| L_BR (RES_IDEN ASSIGNMENT boolValue)* R_BR
+integerResValue 			::= ASSIGNMENT integerValue | L_BR (RES_IDEN ASSIGNMENT integerValue)* R_BR
+stringResValue  			::= ASSIGNMENT stringValue  | L_BR (RES_IDEN ASSIGNMENT stringValue)* R_BR
+
+colorValue					::= COLOR_LITERAL 	| nativePointer | RES_IDEN
+dimenValue					::= DIMEN_LITERAL 	| nativePointer | RES_IDEN
+boolValue					::= BOOL_LITERAL 	| nativePointer | RES_IDEN
+integerValue 				::= INTEGER_LITERAL | nativePointer | RES_IDEN
+stringValue 				::= STRING_LITERAL 	| nativePointer | RES_IDEN
+styleValue					::= COLOR_LITERAL | DIMEN_LITERAL | BOOL_LITERAL | INTEGER_LITERAL | STRING_LITERAL
+  					 		 |  nativePointer | RES_IDEN
+
+nativePointer 				::= AT NULL
+
+styleResBody 				::= (styleAttr | configSelector | mixinInvocation)*
+mixinBody   				::= (styleAttr | configSelector )*
+
+styleAttr 					::= RES_IDEN (ASSIGNMENT RES_IDEN)? ASSIGNMENT styleValue
+configSelector				::= AMP ASSIGNMENT RES_IDEN L_BR (styleAttr)* R_BR
+mixinInvocation 			::= RES_IDEN L_PR R_PR
+
+
 
 

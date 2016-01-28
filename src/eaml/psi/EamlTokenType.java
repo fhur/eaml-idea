@@ -12,12 +12,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public class EamlTokenType extends IElementType {
 
+    private String debugName;
+
     public EamlTokenType(@NotNull @NonNls final String debugName) {
         super(debugName, EamlLanguage.INSTANCE);
+        this.debugName = debugName;
     }
 
     @Override
     public String toString() {
-        return "EamlTokenType."+super.toString();
+        return debugName;
     }
 }
